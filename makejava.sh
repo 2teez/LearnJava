@@ -23,7 +23,9 @@ function usage() {
 filename=
 
 JAVA_PLAIN_FILE="
-public final class <place_holder> {
+package com.practice.<packagename_place_holder>;
+
+public class <classname_place_holder> {
 
     public static void main(String[] args) {
         System.out.println(\"Start Here\");
@@ -55,10 +57,11 @@ case "${opt}" in
         check_ext "${filename}"
         file="${filename%.*}"
         echo "${JAVA_PLAIN_FILE}" > "${filename^}"
-        perl -pe "s/<place_holder>/${file^}/g" "${filename}" > "${filename}_tmp"
-        mv "${filename}_tmp"  "${filename}"
+        perl -pe "s|<packagename_place_holder>|${file,,}|;
+                  s|<classname_place_holder>|${file^}|" "${filename^}" > "${filename}_tmp"
+        mv "${filename}_tmp" "${filename^}"
         javac -d . "${filename}"
-        java -cp . "${filename}"
+        java -cp . "com/practice/${file,,}/${file^}"
         ;;
     r);;
     h)
