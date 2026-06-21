@@ -23,9 +23,9 @@ function usage() {
 filename=
 
 JAVA_PLAIN_FILE="
-public class <place_holder> {
+public final class <place_holder> {
 
-    public static void main(String[] args) {
+    public final static void main(String[] args) {
         System.out.println(\"Start Here\");
     }
 }
