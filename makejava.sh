@@ -45,7 +45,7 @@ function check_ext(){
 # provided on the cli
 [[ "$#" -lt 2 ]] && { usage; exit 1; }
 
-option_string="c:g:o:r:h"
+option_string="c:g:o:r:j:h"
 while getopts "${option_string}" opt; do
 case "${opt}" in
     c)
@@ -64,6 +64,9 @@ case "${opt}" in
         java -cp . "com/practice/${file,,}/${file^}"
         ;;
     r);;
+    j) echo "Launching jshell for java...."
+        jshell
+        ;;
     h)
         usage
         ;;
