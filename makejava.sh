@@ -64,7 +64,14 @@ case "${opt}" in
         javac -d . "${filename}"
         java -cp . "com/practice/${file,,}/${file^}"
         ;;
-    r);;
+    r)
+        echo "Running a java program.."
+        filename="${OPTARG}"
+        check_ext "${filename}"
+        file="${filename%.*}"
+        javac -d . "${filename}"  # compiles
+        java -cp . "com/practice/${file,,}/${file^}" # runs the program
+        ;;
     j) echo "Launching jshell for java...."
         jshell
         ;;
