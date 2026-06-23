@@ -18,6 +18,7 @@ function usage() {
     echo "h:    Display this helper/usage function."
     echo "o:    Create a standalone java program file."
     echo "r:    Run a compiled java project or standalone program file."
+    echo "j:    open and run jshell for java."
 }
 
 filename=
