@@ -2,6 +2,7 @@ package com.practice.primenumbers;
 
 import static java.lang.System.out;
 
+import java.io.Console;
 import java.util.Scanner;
 
 public class PrimeNumbers {
@@ -12,6 +13,12 @@ public class PrimeNumbers {
         int number = userInput.getNumber();
         boolean result = isPrime(number);
         out.println("Is " + number + " a prime number? " + result);
+
+        Console console = System.console();
+        if (console != null) {
+            console.writer().println("Press Enter to exit...");
+            console.readLine();
+        }
     }
 
     public static boolean isPrime(int number) {
