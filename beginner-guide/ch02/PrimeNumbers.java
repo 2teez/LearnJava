@@ -26,9 +26,9 @@ public class PrimeNumbers {
         return true;
     }
 
-    static class UserInput {
+    private static class UserInput {
 
-        public int getNumber() {
+        private int getNumber() {
             var scanner = new Scanner(System.in);
             out.print("Enter a number: ");
             return scanner.nextInt();
