@@ -36,7 +36,13 @@ public class AsciiSwapper {
         private static String swap(String input) {
             StringBuilder sb = new StringBuilder();
             for (char c : input.toCharArray()) {
-                sb.append(swapAscii((int) c));
+                if (c >= 'A' && c <= 'Z') {
+                    sb.append(Character.toLowerCase(c));
+                } else if (c >= 'a' && c <= 'z') {
+                    sb.append(Character.toUpperCase(c));
+                } else {
+                    sb.append(c);
+                }
             }
             return sb.toString();
         }
