@@ -8,6 +8,10 @@ public class GaltoLit {
         var liters = gallons * gallonStandard;
         System.out.printf("%.1f gallons is %.4f Liters.\n", gallons, liters);
         //
+        var weightCalculator = new GaltoLit().new WeightCalculator();
+        double weight = weightCalculator.calculateWeight(72.8);
+        System.out.printf("Weight: %.2f\n", weight);
+        //
         // use a for loop
         for (var ind = 0; ind <= 100; ind++) {
             System.out.printf(
@@ -35,6 +39,17 @@ public class GaltoLit {
         return value * gallonStandard;
     }
 
+    // using inner class
+    class WeightCalculator {
+
+        double gravity = 9.78;
+
+        double calculateWeight(double mass) {
+            return mass * ((17.0 / 100.0) * gravity);
+        }
+    }
+
+    // using nested class
     static class Converter {
 
         double convertMeterToInch(int value) {
