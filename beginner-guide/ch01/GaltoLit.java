@@ -20,10 +20,26 @@ public class GaltoLit {
                 System.out.println();
             }
         }
+        // use a for loop
+        for (var ind = 1; ind <= 12; ind++) {
+            System.out.printf(
+                "%.1f meters is %.4f inches.\n",
+                (double) ind,
+                new GaltoLit.Converter().convertMeterToInch(ind)
+            );
+        }
     }
 
     static double converGallonToLiter(int value) {
         double gallonStandard = 3.7854;
         return value * gallonStandard;
+    }
+
+    static class Converter {
+
+        double convertMeterToInch(int value) {
+            double inchStandard = 39.3701;
+            return value * inchStandard;
+        }
     }
 }
