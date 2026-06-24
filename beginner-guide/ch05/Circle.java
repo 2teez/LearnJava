@@ -1,5 +1,7 @@
 package com.practice.circle;
 
+import com.practice.twodshape.TwoDShape;
+
 public class Circle extends TwoDShape {
 
     private double radius;
