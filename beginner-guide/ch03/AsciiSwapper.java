@@ -11,6 +11,10 @@ public class AsciiSwapper {
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
+        System.out.println();
+        var cons = System.console();
+        var input = cons.readLine("Enter a string to swap: ");
+        System.out.println(StringCharacterSwapping.swap(input));
     }
 
     public static char swapAscii(int input) {
@@ -25,5 +29,16 @@ public class AsciiSwapper {
 
     public static int getAscii() throws java.io.IOException {
         return System.in.read();
+    }
+
+    private static class StringCharacterSwapping {
+
+        private static String swap(String input) {
+            StringBuilder sb = new StringBuilder();
+            for (char c : input.toCharArray()) {
+                sb.append(swapAscii((int) c));
+            }
+            return sb.toString();
+        }
     }
 }
