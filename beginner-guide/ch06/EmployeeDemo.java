@@ -4,9 +4,9 @@ class EmployeeDemo {
 
     public static void main(String[] args) {
         try {
-            var employee = new Employee("John Doe", 23, 3400);
+            var employee = new Employee("John Doe", 23, -3400);
             System.out.println(employee);
-        } catch (PersonException e) {
+        } catch (PersonException | IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -39,10 +39,12 @@ class Employee implements IPerson {
         setSalary(salary);
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public int getAge() {
         return age;
     }
@@ -66,6 +68,9 @@ class Employee implements IPerson {
     }
 
     public void setSalary(double salary) {
+        if (salary <= 0) {
+            throw new IllegalArgumentException("Salary must be positive");
+        }
         this.salary = salary;
     }
 
