@@ -1,6 +1,7 @@
 package com.practice.readafile;
 
 import java.io.Console;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,6 +26,17 @@ public class ReadAFile {
                 file.close();
             }
         }
+
+        /// using static class FileRead
+        try (
+            FileRead reader = new FileRead(getFilename("Enter the filename: "))
+        ) {
+            reader.read();
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static String getFilename(String msg) {
@@ -38,5 +50,27 @@ public class ReadAFile {
             input = con.readLine(msg);
         }
         return input.trim();
+    }
+
+    static class FileRead implements AutoCloseable {
+
+        private FileInputStream file;
+
+        public FileRead(String filename) throws FileNotFoundException {
+            file = new FileInputStream(filename);
+        }
+
+        public void read() throws IOException {
+            while (file.available() > 0) {
+                int data = file.read();
+                System.out.print((char) data);
+            }
+        }
+
+        public void close() throws IOException {
+            if (file != null) {
+                file.close();
+            }
+        }
     }
 }
