@@ -53,10 +53,10 @@ class SumArrayThread implements Runnable {
 
     private final int start;
     private final int stop;
-    private static int sum;
     private final Thread thread;
     private final int[] arr;
     private static final SumArray sumArray = new SumArray();
+    private static int totalSum;
 
     private SumArrayThread(int[] arr, int start, int stop) {
         this.arr = arr;
@@ -73,18 +73,21 @@ class SumArrayThread implements Runnable {
 
     @Override
     public void run() {
-        synchronized (sumArray) {
-            sum += sumArray.sumPartially(arr, start, stop);
+        var sum = sumArray.sumPartially(arr, start, stop);
+        synchronized (SumArrayThread.class) {
+            totalSum += sum;
             System.out.println(
                 Thread.currentThread().getName() +
                     ": sumArrayThread finished" +
                     " sum: " +
-                    sum
+                    sum +
+                    " totalSum: " +
+                    totalSum
             );
         }
     }
 
     public static int getSum() {
-        return sum;
+        return totalSum;
     }
 }
