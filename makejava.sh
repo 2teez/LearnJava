@@ -50,6 +50,11 @@ option_string="c:d:g:o:r:j:h"
 while getopts "${option_string}" opt; do
 case "${opt}" in
     c)
+        echo "Compiling a java program.."
+        filename="${OPTARG}"
+        check_ext "${filename}"
+        file="${filename%.*}"
+        javac -d . "${filename}"  # compiles
         ;;
     d)
         echo "Deleting java file.."
