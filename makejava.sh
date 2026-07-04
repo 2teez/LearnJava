@@ -18,7 +18,9 @@ function usage() {
     echo "h:    Display this helper/usage function."
     echo "o:    Create a standalone java program file."
     echo "r:    Run a compiled java project or standalone program file."
-    echo "j:    open and run jshell for java."
+    echo "s:    open and run jshell for java."
+    echo "j:    Create a jar file from a compiled java project or standalone program file."
+    echo ""
 }
 
 filename=
@@ -46,7 +48,7 @@ function check_ext(){
 # provided on the cli
 [[ "$#" -lt 2 ]] && { usage; exit 1; }
 
-option_string="c:d:g:o:r:j:h"
+option_string="c:d:g:o:r:j:s:h"
 while getopts "${option_string}" opt; do
 case "${opt}" in
     c)
@@ -101,8 +103,20 @@ case "${opt}" in
         javac -d . "${filename}"  # compiles
         java -cp . "com/practice/${file,,}/${file^}" # runs the program
         ;;
-    j) echo "Launching jshell for java...."
+    s) echo "Launching jshell for java...."
         jshell
+        ;;
+    j)
+        echo "Creating a jar file.."
+        # make a manifest file
+        filename="${OPTARG}"
+        check_ext "${filename}"
+        file="${filename%.*}"
+        javac -d . *.java
+        echo "Main-Class: com.practice.${file,,}.${file^}" > manifest.txt
+        echo "" >> manifest.txt
+        jar cvfm "${file}.jar" manifest.txt com
+        java -jar "${file}.jar"
         ;;
     h)
         usage
