@@ -58,7 +58,13 @@ case "${opt}" in
         while read -r -p "Are you sure you want to delete ${filename}? (y/n) " ans; do
             case "${ans}" in
                 [Yy])
-                   [[ -f "${filename}" ]] && rm -f "${filename}"
+                   if [[ -f "${filename}" ]]; then
+                       rm -f "${filename}" # remove file
+                       # search for the file in the directory com/practice
+                       # and delete the directory with the name of the package
+                       dirname_to_delete=$(basename "${filename%.*}")
+                       find com/practice -type d -name "${dirname_to_delete,,}" -exec rm -rf {} \;
+                   fi
                    [[ -d "${filename}" ]] && rm -rf "${filename}"
                    echo "Deleted ${filename}."
                     break;;
