@@ -54,7 +54,8 @@ case "${opt}" in
     d)
         echo "Deleting java file.."
         filename="${OPTARG}"
-        while read -p -r "Are you sure you want to delete ${filename}? (y/n) " ans; do
+        ! [[ -e "${filename}" ]] && { echo "${filename} file or directory does not exist."; exit 1; }
+        while read -r -p "Are you sure you want to delete ${filename}? (y/n) " ans; do
             case "${ans}" in
                 [Yy])
                    [[ -f "${filename}" ]] && rm -f "${filename}"
