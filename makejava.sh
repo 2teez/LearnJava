@@ -46,10 +46,27 @@ function check_ext(){
 # provided on the cli
 [[ "$#" -lt 2 ]] && { usage; exit 1; }
 
-option_string="c:g:o:r:j:h"
+option_string="c:d:g:o:r:j:h"
 while getopts "${option_string}" opt; do
 case "${opt}" in
     c)
+        ;;
+    d)
+        echo "Deleting java file.."
+        filename="${OPTARG}"
+        while read -p -r "Are you sure you want to delete ${filename}? (y/n) " ans; do
+            case "${ans}" in
+                [Yy])
+                   [[ -f "${filename}" ]] && rm -f "${filename}"
+                   [[ -d "${filename}" ]] && rm -rf "${filename}"
+                   echo "Deleted ${filename}."
+                    break;;
+                [Nn])
+                    echo "Cancelled deletion of ${filename}."
+                    break;;
+                *) echo "Invalid input. Please enter 'y' or 'n'.";;
+            esac
+        done
         ;;
     g);;
     o)
