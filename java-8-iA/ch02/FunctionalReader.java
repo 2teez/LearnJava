@@ -14,6 +14,8 @@ class FunctionalReader {
         }
 
         var filePath = con.readLine("Enter file path: ");
+        //
+        // using lambda expression
         var result = processFile(filePath, reader -> {
             StringBuilder sb = new StringBuilder();
             String line;
@@ -23,6 +25,18 @@ class FunctionalReader {
             return sb.toString();
         });
         System.out.println(result);
+        //
+        // using method reference
+        System.out.println(processFile(filePath, FunctionalReader::readIt));
+    }
+
+    public static String readIt(BufferedReader reader) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line).append("\n");
+        }
+        return sb.toString();
     }
 
     public static String processFile(
