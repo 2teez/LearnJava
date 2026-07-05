@@ -16,6 +16,10 @@ class Functionals {
         };
 
         filterFruits(apples, Fruit::isRedFruit).forEach(System.out::println);
+        filterFruits(apples, Fruit::isHeavyFruit).forEach(System.out::println);
+        filterFruits(apples, fruit -> fruit.getName().contains("Red")).forEach(
+            System.out::println
+        );
     }
 
     public static Collection<Fruit> filterFruits(
@@ -31,5 +35,13 @@ class Functionals {
 record Fruit(String name, int weight, String color) {
     static boolean isRedFruit(Fruit fruit) {
         return fruit.color.equals("red");
+    }
+
+    static boolean isHeavyFruit(Fruit fruit) {
+        return fruit.weight > 150;
+    }
+
+    public String getName() {
+        return name;
     }
 }
