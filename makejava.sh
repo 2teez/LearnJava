@@ -26,6 +26,12 @@ function usage() {
 
 filename=
 
+
+# debug function
+function debug() {
+    echo "debug: ${1}"; exit;
+}
+
 JAVA_PLAIN_FILE="
 package com.practice.<packagename_place_holder>;
 
