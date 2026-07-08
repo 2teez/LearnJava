@@ -110,7 +110,26 @@ case "${opt}" in
             esac
         done
         ;;
-    g);;
+    g)
+        echo "Generating standalone java file.."
+        filename="${OPTARG}"
+        check_ext "${filename}"
+        file="${filename%.*}"
+        echo "${JAVA_PLAIN_FILE}" > "${filename^}"
+        perl -pe "s|<packagename_place_holder>|${file,,}|;
+                  s|<classname_place_holder>|${file^}|" "${filename^}" > "${filename}_tmp"
+        mv "${filename}_tmp" "${filename^}"  # move the temporary file to the original filename
+
+        # make a directory with the package structure to move java file into
+        java_project_path="${file^}/com/practice/${file,,}"
+        mkdir -p "${java_project_path}"  # create the directory if it doesn't exist
+        filename="${filename^}"
+        mv "${filename}" "${java_project_path}/"  # move the java file into the directory
+
+        cd "${file^}" || exit
+        javac -d out "com/practice/${file,,}/${filename}"
+        java -cp out "com.practice.${file,,}.${file^}"
+        ;;
     o)
         echo "Generating standalone java file.."
         filename="${OPTARG}"
@@ -121,7 +140,7 @@ case "${opt}" in
                   s|<classname_place_holder>|${file^}|" "${filename^}" > "${filename}_tmp"
         mv "${filename}_tmp" "${filename^}"
         javac -d . "${filename}"
-        java -cp . "com/practice/${file,,}/${file^}"
+        java -cp . "com.practice.${file,,}.${file^}"
         ;;
     r)
         echo "Running a java program.."
