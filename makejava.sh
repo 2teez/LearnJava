@@ -20,6 +20,7 @@ function usage() {
     echo "r:    Run a compiled java project or standalone program file."
     echo "s:    open and run jshell for java."
     echo "j:    Create a jar file from a compiled java project or standalone program file."
+    echo "x:    Create, compile, and run a javafx program"
     echo ""
 }
 
@@ -36,6 +37,24 @@ public class <classname_place_holder> {
 }
 "
 
+JAVA_FX_FILE="
+package com.practice.<packagename_place_holder>FX;
+
+public class <classname_place_holder>FX {
+
+    @Override
+    public void start(Stage stage) {
+        stage.setTitle(\"JavaFX\");
+        stage.setScene(new Scene(new Label(\"Hello JavaFX!\"), 300, 200));
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+"
+
 function check_ext(){
     file="${1}"
     filename="${file%.*}"
@@ -48,7 +67,7 @@ function check_ext(){
 # provided on the cli
 [[ "$#" -lt 2 ]] && { usage; exit 1; }
 
-option_string="c:d:g:o:r:j:s:h"
+option_string="c:d:g:o:r:j:s:x:h"
 while getopts "${option_string}" opt; do
 case "${opt}" in
     c)
@@ -117,6 +136,36 @@ case "${opt}" in
         echo "" >> manifest.txt
         jar cvfm "${file}.jar" manifest.txt com
         java -jar "${file}.jar"
+        ;;
+    x)
+        echo "Creating, compiling, and running a javafx program.."
+        filename="${OPTARG}"
+        check_ext "${filename}"
+        file="${filename%.*}"
+
+        echo "${JAVA_FX_FILE}" > "${file}.java"
+
+        perl -pe "s|<packagename_place_holder>|${file,,}|;
+                  s|<classname_place_holder>|${file^}|" "${filename^}" > "${filename}_tmp"
+
+        mv "${filename}_tmp" "${filename^}"
+
+        file="${filename%.*}FX.java"
+
+        debug "${file}"
+
+        file="${file^}"
+
+        javac -d . \
+        --module-path "${JAVAFX_HOME}/lib" \
+        --add-modules javafx.controls \
+        "${file}"
+
+        java -cp . \
+        --enable-native-access=javafx.graphics \
+        --module-path "${JAVAFX_HOME}/lib" \
+        --add-modules javafx.controls \
+        "com.practice.${file,,}.${file^}"
         ;;
     h)
         usage
