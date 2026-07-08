@@ -29,11 +29,10 @@ filename=
 
 # debug function
 function debug() {
-    echo "debug: ${1}"; exit;
+    echo "debug: ${*}"; exit;
 }
 
-JAVA_PLAIN_FILE="
-package com.practice.<packagename_place_holder>;
+JAVA_PLAIN_FILE="package com.practice.<packagename_place_holder>;
 
 public class <classname_place_holder> {
 
@@ -43,10 +42,14 @@ public class <classname_place_holder> {
 }
 "
 
-JAVA_FX_FILE="
-package com.practice.<packagename_place_holder>FX;
+JAVA_FX_FILE="package com.practice.<packagename_place_holder>FX;
 
-public class <classname_place_holder>FX {
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
+public class <classname_place_holder>FX extends Application {
 
     @Override
     public void start(Stage stage) {
@@ -95,7 +98,7 @@ case "${opt}" in
                        # search for the file in the directory com/practice
                        # and delete the directory with the name of the package
                        dirname_to_delete=$(basename "${filename%.*}")
-                       find com/practice -type d -name "${dirname_to_delete,,}" -exec rm -rf {} \;
+                       find com/practice -type d -name "${dirname_to_delete,}" -exec rm -rf {} \;
                    fi
                    [[ -d "${filename}" ]] && rm -rf "${filename}"
                    echo "Deleted ${filename}."
@@ -145,33 +148,30 @@ case "${opt}" in
         ;;
     x)
         echo "Creating, compiling, and running a javafx program.."
-        filename="${OPTARG}"
+        filename="${OPTARG^}"
         check_ext "${filename}"
         file="${filename%.*}"
 
         echo "${JAVA_FX_FILE}" > "${file}.java"
 
         perl -pe "s|<packagename_place_holder>|${file,,}|;
-                  s|<classname_place_holder>|${file^}|" "${filename^}" > "${filename}_tmp"
+                  s|<classname_place_holder>|${file}|" "${filename}" > "${filename}_tmp"
 
-        mv "${filename}_tmp" "${filename^}"
-
+        mv "${filename}_tmp" "${filename%.*}FX.java"; rm "${file}.java"
         file="${filename%.*}FX.java"
 
-        debug "${file}"
-
-        file="${file^}"
-
         javac -d . \
-        --module-path "${JAVAFX_HOME}/lib" \
+        --module-path "${JAVAFX_HOME}" \
         --add-modules javafx.controls \
         "${file}"
 
+        file="${file%.*}"
+
         java -cp . \
         --enable-native-access=javafx.graphics \
-        --module-path "${JAVAFX_HOME}/lib" \
+        --module-path "${JAVAFX_HOME}" \
         --add-modules javafx.controls \
-        "com.practice.${file,,}.${file^}"
+        "com.practice.${file,}.${file^}"
         ;;
     h)
         usage
