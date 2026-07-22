@@ -15,11 +15,11 @@ class PracticeInterface {
         out.println(avg);
         //
         IntSequence digSeq = new DigitSequence(1978);
-        var digAvg = getAvearge(digSeq, 100);
+        var digAvg = getAverage(digSeq, 100);
         out.println(digAvg);
     }
 
-    static double getAvearge(IntSequence seq, int n) {
+    static double getAverage(IntSequence seq, int n) {
         int count = 0;
         double sum = 0;
         while (seq.hasNext() && count < n) {
@@ -50,10 +50,12 @@ class DigitSequence implements IntSequence {
         this.digits = digits;
     }
 
+    @Override
     public boolean hasNext() {
         return this.digits != 0;
     }
 
+    @Override
     public int next() {
         int result = this.digits % 10;
         this.digits /= 10;
