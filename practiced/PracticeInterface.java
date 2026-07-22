@@ -61,4 +61,8 @@ class DigitSequence implements IntSequence {
         this.digits /= 10;
         return result;
     }
+
+    public int rest() {
+        return number;
+    }
 }

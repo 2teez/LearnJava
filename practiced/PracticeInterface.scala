@@ -25,6 +25,7 @@ package otherClasses:
       val result = number % 10
       number /= 10
       result
+    def rest: Int = number
 
 @main def main(args: String*): Unit =
   import otherClasses.*
@@ -34,5 +35,8 @@ package otherClasses:
   println(getAverage(intSeq, 100))
   //
   val digSeq = new DigitSequence(1978);
-  val digAvg = getAverage(digSeq, 100);
+  val digAvg = getAverage(digSeq, 10);
   println(digAvg);
+  println(digSeq.rest)
+  //
+  println(intSeq.asInstanceOf[DigitSequence])
