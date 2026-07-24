@@ -1,5 +1,7 @@
 package com.practice.eh;
 
+import static java.lang.System.Logger.Level.ERROR;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,7 +18,7 @@ public class Eh {
         try {
             System.out.println(new Eh().sumOfValues("doubleFiles.txt"));
         } catch (IOException e) {
-            logger.log(System.Logger.Level.ERROR, e.getMessage(), e);
+            logger.log(ERROR, e.getMessage(), e);
         }
     }
 
