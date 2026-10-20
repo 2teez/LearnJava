@@ -20,6 +20,7 @@ public class Variables {
             err.println(nfex.getMessage());
         }
         out.println("My name is " + name + ", I am " + age + " years old!");
+        scanner.close();
     }
 
     static String getUserInput(String msg) {
