@@ -6,8 +6,15 @@ import java.util.Arrays;
 
 public class Jutils {
 
-    public static <T extends Object> void prints(String msg, T[] args) {
-        out.print(msg);
-        out.println(Arrays.toString(args));
+    public static class utils {
+
+        public static <T> void prints(String msg, T[] args) {
+            out.print(msg.isBlank() ? "" : msg);
+            out.println(Arrays.toString(args));
+        }
+
+        public static <T> void prints(T[] args) {
+            prints("", args);
+        }
     }
 }
