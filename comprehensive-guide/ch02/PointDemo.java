@@ -1,8 +1,8 @@
 package com.practice.pointdemo;
 
+import static com.practice.jutils.Jutils.utils;
 import static java.lang.System.out;
 
-import com.practice.jutils.Jutils;
 import java.util.Arrays;
 
 class PointDemo {
@@ -19,7 +19,8 @@ class PointDemo {
         out.println(pt3.equals(pt4));
         //
         com.practice.point.Point[] points = { pt3, pt4 };
-        Jutils.prints("...", points);
+        utils.prints("Points are ", points);
+        utils.prints(points);
     }
 }
 
