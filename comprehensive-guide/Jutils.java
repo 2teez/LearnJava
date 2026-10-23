@@ -27,7 +27,7 @@ public class Jutils {
             prints("", args);
         }
 
-        public static double sum(double[] values) {
+        public static double sum(double... values) {
             double total = 0;
             for (var value : values) {
                 total += value;
