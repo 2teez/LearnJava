@@ -2,6 +2,9 @@ package com.practice.pointdemo;
 
 import static java.lang.System.out;
 
+import com.practice.jutils.Jutils;
+import java.util.Arrays;
+
 class PointDemo {
 
     public static void main(String[] args) {
@@ -15,7 +18,8 @@ class PointDemo {
         out.println(pt3 == pt4);
         out.println(pt3.equals(pt4));
         //
-        out.println(p4);
+        com.practice.point.Point[] points = { pt3, pt4 };
+        Jutils.prints("...", points);
     }
 }
 
