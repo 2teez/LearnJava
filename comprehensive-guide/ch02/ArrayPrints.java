@@ -46,15 +46,16 @@ class ArrayPrints {
         return new Tuple(args);
     }
 
-    static int[] remDivide(int firstNumber, int secondNumber) throws Exception {
-        int[] result = new int[2];
+    static int[] remDivide(int firstNumber, int secondNumber)
+        throws ArithmeticException {
         if (secondNumber == 0) {
-            throw new Exception("Can't divide with Zero.");
+            throw new ArithmeticException("Can't divide with Zero.");
         }
-        result[0] = firstNumber % secondNumber;
-        result[1] = firstNumber / secondNumber;
 
-        return result;
+        return new int[] {
+            firstNumber % secondNumber,
+            firstNumber / secondNumber,
+        };
     }
 }
 
