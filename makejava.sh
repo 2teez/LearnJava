@@ -111,7 +111,7 @@ case "${opt}" in
         done
         ;;
     g)
-        echo "Generating standalone java file.."
+        echo "Generating generic java project.."
         filename="${OPTARG}"
         check_ext "${filename}"
         file="${filename%.*}"
