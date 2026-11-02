@@ -25,7 +25,7 @@ public class Rectangle extends Shape {
     @Override
     public String toString() {
         return String.format(
-            "%s(%.2f, %.2f)",
+            "%s from (Width: %.2f, Breath: %.2f)",
             super.toString(),
             this.width,
             this.breath

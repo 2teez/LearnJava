@@ -10,6 +10,11 @@ public abstract class Shape {
 
     @Override
     public String toString() {
-        return String.format("%s", getClass().getSimpleName());
+        return String.format(
+            "%s: Area: %.2f, Perimeter: %.2f",
+            this.getClass().getSimpleName(),
+            this.area(),
+            this.perimeter()
+        );
     }
 }
