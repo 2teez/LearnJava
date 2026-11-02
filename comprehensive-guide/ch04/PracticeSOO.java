@@ -18,20 +18,11 @@ class PracticeSOO {
             new Circle(1.25),
         });
 
-        shapes.forEach(System.out::println);
-        shapes.forEach(sh ->
-            out.printf(
-                "%s: Area: %.2f, Perimeter: %.2f\n",
-                sh.getClass().getSimpleName(),
-                sh.area(),
-                sh.perimeter()
-            )
-        );
+        shapes.forEach(out::println);
         //
         // circle
         Shaper circle = new Circle(1.25);
-        out.println(circle.toString());
-        out.println(circle.area());
-        out.println(circle.perimeter());
+        out.println(circle);
+        out.println(circle.printProperties());
     }
 }
