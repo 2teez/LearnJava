@@ -148,7 +148,21 @@ case "${opt}" in
         check_ext "${filename}"
         file="${filename%.*}"
         javac -d . "${filename}"  # compiles
-        java -cp . "com/practice/${file,,}/${file^}" # runs the program
+        # moves the java files into the package path
+        # header the package of the file to compile
+        filepath=$(perl -ne '
+            if (/^\s*package\s+([\w.]+)\s*;/) {
+                my $path = $1;
+                $path =~ tr{.}{/};
+                print $path;
+            }
+            exit;
+        ' -- "$filename")
+
+        # mv "${filename}" "com/practice/${file,,}/${filename}" # old code
+        # java -cp . "com/practice/${file,,}/${file^}"          # runs the program
+        mv "${filename}" "$filepath"
+        java "${filepath}/${filename}"
         ;;
     s) echo "Launching jshell for java...."
         jshell
