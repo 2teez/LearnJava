@@ -14,6 +14,7 @@ function usage() {
     echo ""
     echo "c:    Compile a java project or standalone program file."
     echo "d:    Delete specified file or project file."
+    echo "e     Compile and run a java standalone program with assertion enabled."
     echo "g:    Create a java generic project."
     echo "h:    Display this helper/usage function."
     echo "o:    Create a standalone java program file."
@@ -76,7 +77,7 @@ function check_ext(){
 # provided on the cli
 [[ "$#" -lt 2 ]] && { usage; exit 1; }
 
-option_string="c:d:g:o:r:j:s:x:h"
+option_string="c:d:e:g:o:r:j:s:x:h"
 while getopts "${option_string}" opt; do
 case "${opt}" in
     c)
@@ -109,6 +110,56 @@ case "${opt}" in
                 *) echo "Invalid input. Please enter 'y' or 'n'.";;
             esac
         done
+        ;;
+    e)
+        echo "Running a java program with assertion enabled."
+        echo "Running a Java program..."
+        filename="${OPTARG}"
+        check_ext "$filename"
+
+        # Locate the source if a previous run moved it.
+        if [[ ! -f "$filename" ]]; then
+            matches=()
+
+            while IFS= read -r -d '' match; do
+                matches+=("$match")
+            done < <(find . -type f -name "$(basename -- "$filename")" -print0)
+
+            case "${#matches[@]}" in
+                0) die "Source file not found: $filename" ;;
+                1) filename="${matches[0]}" ;;
+                *) die "Multiple matching files found. Specify the path." ;;
+            esac
+        fi
+
+        package=$(perl -ne '
+            if (/^\s*package\s+([\w.]+)\s*;/) {
+                print $1;
+                exit;
+            }
+        ' -- "$filename")
+
+        classname=$(basename -- "${filename%.java}")
+
+        if [[ -n "$package" ]]; then
+            filepath="${package//.//}"
+            destination="$filepath/$(basename -- "$filename")"
+
+            mkdir -p -- "$filepath" || die "Cannot create package directory"
+
+            if [[ ! "$filename" -ef "$destination" ]]; then
+                [[ ! -e "$destination" ]] ||
+                    die "Destination already exists: $destination"
+
+                mv -- "$filename" "$destination" || die "Cannot move source file"
+            fi
+
+            filename="$destination"
+            classname="${package}.${classname}"
+        fi
+
+        javac -d . "$filename" || die "Compilation failed"
+        java -ea -cp . "$classname"
         ;;
     g)
         echo "Generating generic java project.."
@@ -143,26 +194,53 @@ case "${opt}" in
         java -cp . "com.practice.${file,,}.${file^}"
         ;;
     r)
-        echo "Running a java program.."
+        echo "Running a Java program..."
         filename="${OPTARG}"
-        check_ext "${filename}"
-        file="${filename%.*}"
-        javac -d . "${filename}"  # compiles
-        # moves the java files into the package path
-        # header the package of the file to compile
-        filepath=$(perl -ne '
+        check_ext "$filename"
+
+        # Locate the source if a previous run moved it.
+        if [[ ! -f "$filename" ]]; then
+            matches=()
+
+            while IFS= read -r -d '' match; do
+                matches+=("$match")
+            done < <(find . -type f -name "$(basename -- "$filename")" -print0)
+
+            case "${#matches[@]}" in
+                0) die "Source file not found: $filename" ;;
+                1) filename="${matches[0]}" ;;
+                *) die "Multiple matching files found. Specify the path." ;;
+            esac
+        fi
+
+        package=$(perl -ne '
             if (/^\s*package\s+([\w.]+)\s*;/) {
-                my $path = $1;
-                $path =~ tr{.}{/};
-                print $path;
+                print $1;
+                exit;
             }
-            exit;
         ' -- "$filename")
 
-        # mv "${filename}" "com/practice/${file,,}/${filename}" # old code
-        # java -cp . "com/practice/${file,,}/${file^}"          # runs the program
-        mv "${filename}" "$filepath"
-        java "${filepath}/${filename}"
+        classname=$(basename -- "${filename%.java}")
+
+        if [[ -n "$package" ]]; then
+            filepath="${package//.//}"
+            destination="$filepath/$(basename -- "$filename")"
+
+            mkdir -p -- "$filepath" || die "Cannot create package directory"
+
+            if [[ ! "$filename" -ef "$destination" ]]; then
+                [[ ! -e "$destination" ]] ||
+                    die "Destination already exists: $destination"
+
+                mv -- "$filename" "$destination" || die "Cannot move source file"
+            fi
+
+            filename="$destination"
+            classname="${package}.${classname}"
+        fi
+
+        javac -d . "$filename" || die "Compilation failed"
+        java -cp . "$classname"
         ;;
     s) echo "Launching jshell for java...."
         jshell
