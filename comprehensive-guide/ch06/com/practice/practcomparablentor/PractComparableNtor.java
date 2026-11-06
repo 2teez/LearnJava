@@ -15,9 +15,12 @@ class PractComparableNtor {
             new Person("perl", 25),
             new Person("python", 27)
         );
+        System.out.println("---- Natural Order of a List -----");
         System.out.println(persons);
+        System.out.println("---- Comparable -----");
         Collections.sort(persons);
-        System.out.println(persons);
+        persons.forEach(System.out::println);
+        System.out.println("---- Using java.util.Comparator -----");
         // using comparator
         final var COMPARATOR_NAME = new Comparator<Person>() {
             @Override
@@ -29,7 +32,7 @@ class PractComparableNtor {
             persons,
             COMPARATOR_NAME.thenComparing(Person::compareTo)
         );
-        System.out.println(persons);
+        persons.forEach(System.out::println);
     }
 }
 
