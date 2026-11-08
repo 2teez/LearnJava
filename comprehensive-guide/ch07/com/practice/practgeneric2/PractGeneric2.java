@@ -16,7 +16,7 @@ class PractGeneric2 {
         numberListWrapper.set(List.of(3, 6, 8));
         WrapperUtil.printDetails(numberListWrapper);
         //
-        WrapperUtil.printDetails(numberListWrapper);
+        WrapperUtil.printDetails(new Wrapper<Integer>(16));
     }
 }
 
@@ -45,6 +45,13 @@ class Wrapper<T> {
 class WrapperUtil {
 
     public static void printDetails(Wrapper<?> value) {
-        out.println(value);
+        var localValue = value.get();
+        String resultValue = null;
+        if (localValue != null) {
+            resultValue = localValue.getClass().getSimpleName();
+        }
+        out.println(
+            String.format("Class: %s, Value: %s", resultValue, localValue)
+        );
     }
 }
