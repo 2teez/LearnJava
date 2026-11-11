@@ -18,6 +18,15 @@ public class Library<T> {
         return this;
     }
 
+    public Library<T> addItems(List<T> books) {
+        this.books.addAll(books);
+        return this;
+    }
+
+    public List<T> getBooks() {
+        return this.books;
+    }
+
     @Override
     public String toString() {
         return Arrays.toString(books.toArray());
