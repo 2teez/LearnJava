@@ -8,8 +8,8 @@ import java.util.List;
 public class PracticeStreamMain {
 
     public static void main(String[] args) {
-        var lib = new Library<Book>();
-        lib.addItem(
+        var library = new Library<Book>();
+        library.addItem(
             new Book(
                 "Fundamentals of Chinese Fingernail Image",
                 Arrays.asList("Li", "Fu", "Li"),
@@ -46,8 +46,8 @@ public class PracticeStreamMain {
                 Topic.FICTION
             )
         );
-        lib.addItems(books);
-        var library = lib.getBooks();
+        library.addItems(books);
+        //var library = lib.getBooks();
         library.stream().map(Book::getPubDate).forEach(System.out::println);
         library
             .stream()
