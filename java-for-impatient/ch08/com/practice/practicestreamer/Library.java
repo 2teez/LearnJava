@@ -2,8 +2,8 @@ package com.practice.practicestreamer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Library<T> {
 
@@ -13,22 +13,20 @@ public class Library<T> {
         this.books = new ArrayList<>();
     }
 
-    public Library<T> addItem(T book) {
-        this.books.add(book);
-        return this;
+    public boolean addItem(T book) {
+        return this.books.add(book);
     }
 
-    public Library<T> addItems(List<T> books) {
-        this.books.addAll(books);
-        return this;
+    public boolean addItems(List<T> books) {
+        return this.books.addAll(books);
     }
 
-    public List<T> getBooks() {
-        return this.books;
+    public Stream<T> stream() {
+        return this.books.stream();
     }
 
     @Override
     public String toString() {
-        return Arrays.toString(books.toArray());
+        return books.toString();
     }
 }
