@@ -2,16 +2,14 @@ package com.practice.practicestreamer;
 
 import java.time.Year;
 import java.util.Arrays;
-import java.util.Date;
+import java.util.Comparator;
 import java.util.List;
-
-//import java.util.stream;
 
 public class PracticeStreamMain {
 
     public static void main(String[] args) {
-        var library = new Library<Book>();
-        library.addItem(
+        var lib = new Library<Book>();
+        lib.addItem(
             new Book(
                 "Fundamentals of Chinese Fingernail Image",
                 Arrays.asList("Li", "Fu", "Li"),
@@ -48,7 +46,17 @@ public class PracticeStreamMain {
                 Topic.FICTION
             )
         );
-        library.addItems(books);
-        library.getBooks().stream().forEach(System.out::println);
+        lib.addItems(books);
+        var library = lib.getBooks();
+        library.stream().map(Book::getPubDate).forEach(System.out::println);
+        library
+            .stream()
+            .filter(b -> b.getTopic() == Topic.COMPUTING)
+            .forEach(System.out::println);
+        library.stream().map(Book::getTitle).forEach(System.out::println);
+        library
+            .stream()
+            .sorted(Comparator.comparing(Book::getTitle))
+            .forEach(System.out::println);
     }
 }
