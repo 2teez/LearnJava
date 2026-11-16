@@ -21,7 +21,7 @@ public class CustomerTest {
         @Test
         @DisplayName("Test customer nested class builder.")
         public void customerBuilderTest() throws ParseException {
-            var date = new SimpleDateFormat("dd-mm-yyyy");
+            var date = new SimpleDateFormat("MM-dd-yyyy");
             var customer = new Customer.Builder(
                 Gender.MALE,
                 FIRSTNAME,
@@ -34,6 +34,9 @@ public class CustomerTest {
             assertAll(() -> {
                 assertEquals(Gender.MALE, customer.getGender());
                 assertEquals(FIRSTNAME, customer.getFirstName());
+                assertEquals(LASTNAME, customer.getLastName());
+                assertEquals(MIDDLENAME, customer.getMiddleName());
+                // assertEquals(date, customer.getBecomeCustomer());
             });
         }
     }
