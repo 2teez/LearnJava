@@ -1,0 +1,36 @@
+plugins {
+   id 'java'
+   id 'application'
+}
+
+version = "0.0.1"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+ mavenCentral()
+}
+
+dependancies {
+  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.0'
+  testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.6.0'
+}
+
+
+application {
+   mainClass = 'com.practice'
+}
+
+test {
+    // Use junit platform for unit tests
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.practice'
+    }
+}
