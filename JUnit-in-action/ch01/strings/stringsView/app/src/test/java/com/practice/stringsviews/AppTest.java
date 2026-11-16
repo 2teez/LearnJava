@@ -3,12 +3,14 @@ package com.practice.stringsviews;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.Duration;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class AppTest {
 
     @Test
-    void reverse_non_string() {
+    @DisplayName("reverse non null string")
+    void reverseNonNullString() {
         // given
         String emptyString = "";
 
@@ -20,7 +22,8 @@ public class AppTest {
     }
 
     @Test
-    void reverse_non_string1() {
+    @DisplayName("reverse non null string with exception using fail function")
+    void reverseNonNullStringWithFail() {
         try {
             App.reverse(null);
             fail("reverse(null) should return IllegalArgumentException.");
@@ -28,7 +31,10 @@ public class AppTest {
     }
 
     @Test
-    void reverse_non_string2() {
+    @DisplayName(
+        "reverse non null string with exception using assertThrows function"
+    )
+    void reverseNonNullStringWithAssertThrows() {
         assertThrows(IllegalArgumentException.class, () -> {
             App.reverse(null);
         });
