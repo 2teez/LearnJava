@@ -2,6 +2,7 @@ package com.practice.stringsviews;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.Duration;
 import org.junit.jupiter.api.Test;
 
 public class AppTest {
@@ -30,6 +31,13 @@ public class AppTest {
     void reverse_non_string2() {
         assertThrows(IllegalArgumentException.class, () -> {
             App.reverse(null);
+        });
+    }
+
+    @Test
+    void reverse_string_timeout_1s() {
+        assertTimeout(Duration.ofMillis(1), () -> {
+            App.reverse("abc");
         });
     }
 }
