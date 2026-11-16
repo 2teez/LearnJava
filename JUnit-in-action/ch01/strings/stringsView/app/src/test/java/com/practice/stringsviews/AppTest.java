@@ -15,6 +15,6 @@ public class AppTest {
         String reversedString = App.reverse(emptyString);
         // then
         assertEquals("", reversedString);
-        assertEquals("cba", App.reverse("cba"));
+        assertEquals("cba", App.reverse("abc"));
     }
 }

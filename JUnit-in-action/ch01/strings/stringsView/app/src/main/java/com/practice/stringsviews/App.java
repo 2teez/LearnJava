@@ -7,6 +7,6 @@ public class App {
     }
 
     public static String reverse(String str) {
-        return null;
+        return new StringBuilder(str).reverse().toString();
     }
 }
