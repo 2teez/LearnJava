@@ -37,6 +37,7 @@ repositories {
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testImplementation 'org.assertj:assertj-core:3.27.3'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.0'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.6.0'
 }
@@ -79,6 +80,7 @@ function write_java_test_file() {
     echo "package com.practice.app;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
