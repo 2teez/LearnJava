@@ -37,6 +37,9 @@ repositories {
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    // remove the comment below to use parameterizedTest
+    // with either ValueSource or CsvSource, provider
+    // testImplementation 'org.junit.jupiter:junit-jupiter-params:5.6.0'
     testImplementation 'org.assertj:assertj-core:3.27.3'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.0'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.6.0'
