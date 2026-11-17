@@ -28,7 +28,7 @@ public class MoneyTestParameterized {
         int amount,
         String currency
     ) {
-        var money = new Money(amount, "Naira");
+        var money = new Money(amount, currency);
         assertThat(money.amount()).isEqualTo(amount);
         assertThat(money.currency()).isEqualTo(currency);
     }
