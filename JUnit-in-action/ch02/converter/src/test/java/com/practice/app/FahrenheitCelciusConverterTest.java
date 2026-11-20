@@ -20,7 +20,7 @@ public class FahrenheitCelciusConverterTest {
     }
 
     @ParameterizedTest
-    @CsvSource({ "0, 32", "36, 98", "100, 212" })
+    @CsvSource({ "0, 32", "37, 100", "100, 212" })
     @DisplayName("Should convert Fahrenheit to Celcius scale.")
     public void shouldConvertFahrenheitToCelcius(int celcius, int fahrenheit) {
         assertThat(FahrenheitCelciusConverter.toCelcius(fahrenheit)).isEqualTo(
