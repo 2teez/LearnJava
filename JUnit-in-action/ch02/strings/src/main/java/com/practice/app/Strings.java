@@ -7,6 +7,9 @@ public class Strings {
     }
 
     public static String reverse(String str) {
+        if (str == null || str.isEmpty()) {
+            throw new NullPointerException("can't reverse empty string.");
+        }
         return new StringBuilder(str).reverse().toString();
     }
 }
