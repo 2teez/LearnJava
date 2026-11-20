@@ -5,14 +5,17 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class ValidatorTest {
 
-    private static String PASSWORD = "validate";
+    private static String PASSWORD = "validat3s";
+    private static int LENGTH = 9;
     private Validator access;
 
     @BeforeEach
@@ -58,9 +61,19 @@ public class ValidatorTest {
         });
     }
 
+    @ParameterizedTest
+    @DisplayName("the password should be more than 8 letters.")
+    @ValueSource(strings = { "helloWorld", "thequickBrownDog", "1234567890" })
+    public void validateMethodShouldHaveMoreorLessThanEightLetter(
+        String password
+    ) {
+        access = new Validator(password);
+        assertThat(access.getPassword().length()).isGreaterThan(LENGTH);
+    }
+
     @Test
-    @DisplayName("the password should be more or less than 8 letters.")
-    public void validateMethodShouldHaveMoreorLessThanEightLetter() {
-        assertThat(access.getPassword().length()).isEqualTo(8);
+    @DisplayName("the password should have atleast one digits")
+    public void validateMethodShouldHaveAtLeastOneDigit() {
+        assertThat(access.getPassword()).matches(".*?\\d.*?");
     }
 }

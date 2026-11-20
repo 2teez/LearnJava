@@ -29,11 +29,11 @@ test {
 }
 
 application {
-    mainClass = 'com.practice.app.Validator'
+    mainClass = 'com.practice.app.ValidatorMain'
 }
 
 jar {
     manifest {
-        attributes 'Main-Class': 'com.practice.app.Validator'
+        attributes 'Main-Class': 'com.practice.app.ValidatorMain'
     }
 }
