@@ -57,4 +57,10 @@ public class ValidatorTest {
             access.validate(actualPassword);
         });
     }
+
+    @Test
+    @DisplayName("the password should be more or less than 8 letters.")
+    public void validateMethodShouldHaveMoreorLessThanEightLetter() {
+        assertThat(access.getPassword().length()).isEqualTo(8);
+    }
 }
