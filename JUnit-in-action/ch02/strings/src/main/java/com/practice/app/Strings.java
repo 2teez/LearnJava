@@ -3,7 +3,7 @@ package com.practice.app;
 public class Strings {
 
     public static void main(String[] args) {
-        reverse("Howdy...");
+        System.out.println(reverse("Howdy..."));
     }
 
     public static String reverse(String str) {
