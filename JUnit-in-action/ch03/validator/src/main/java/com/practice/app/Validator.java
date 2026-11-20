@@ -2,11 +2,24 @@ package com.practice.app;
 
 public class Validator {
 
-    public static void main(String[] args) {
-        strLen("Howdy...");
+    private String password;
+
+    public Validator(String password) {
+        this.password = password;
     }
 
-    public static int strLen(String str) {
-        return str.length();
+    public boolean validate(String password) {
+        if (this.password == null) {
+            throw new NullPointerException("Password can't be null");
+        } else if (
+            password == null || this.password.isEmpty() || password.isEmpty()
+        ) {
+            return false;
+        }
+        return this.password.equals(password);
+    }
+
+    public String getPassword() {
+        return this.password;
     }
 }
