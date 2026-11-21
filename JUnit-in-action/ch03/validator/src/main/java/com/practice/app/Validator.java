@@ -2,7 +2,8 @@ package com.practice.app;
 
 public class Validator {
 
-    private String password;
+    private final String password;
+    private final int PASSWORD_LENGTH = 8;
 
     public Validator(String password) {
         this.password = password;
@@ -18,15 +19,18 @@ public class Validator {
             return result;
         }
 
-        if (checkPasswordLength() > 8 && this.password.equals(password)) {
+        if (checkPasswordLength() && this.password.equals(password)) {
             result = true;
         }
 
         return result;
     }
 
-    private int checkPasswordLength() {
-        return this.password.length();
+    private boolean checkPasswordLength() {
+        if (this.password.length() <= PASSWORD_LENGTH) {
+            return false;
+        }
+        return true;
     }
 
     public String getPassword() {

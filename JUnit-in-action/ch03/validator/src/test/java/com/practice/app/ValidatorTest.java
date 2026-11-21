@@ -64,9 +64,7 @@ public class ValidatorTest {
     @ParameterizedTest
     @DisplayName("the password should be more than 8 letters.")
     @ValueSource(strings = { "helloWorld", "thequickBrownDog", "1234567890" })
-    public void validateMethodShouldHaveMoreorLessThanEightLetter(
-        String password
-    ) {
+    public void validateMethodShouldCheckTheLengthOfPassword(String password) {
         access = new Validator(password);
         assertThat(access.getPassword().length()).isGreaterThan(LENGTH);
     }
@@ -75,5 +73,11 @@ public class ValidatorTest {
     @DisplayName("the password should have atleast one digits")
     public void validateMethodShouldHaveAtLeastOneDigit() {
         assertThat(access.getPassword()).matches(".*?\\d.*?");
+    }
+
+    @Test
+    @DisplayName("the password should have atleast one Capital letter")
+    public void validateMethodShouldHaveAtLeastOneCapitalLetter() {
+        assertThat(access.getPassword()).matches(".*?[A-Z]{1,}.*?");
     }
 }
