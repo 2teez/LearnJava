@@ -14,7 +14,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class ValidatorTest {
 
-    private static String PASSWORD = "validat3s";
+    private static String PASSWORD = "valIdAT3s"; //"valiDat3s";
     private static int LENGTH = 9;
     private Validator access;
 
@@ -76,8 +76,12 @@ public class ValidatorTest {
     }
 
     @Test
-    @DisplayName("the password should have atleast one Capital letter")
-    public void validateMethodShouldHaveAtLeastOneCapitalLetter() {
-        assertThat(access.getPassword()).matches(".*?[A-Z]{1,}.*?");
+    @DisplayName(
+        "the password should have atleast one Capital and Small letter"
+    )
+    public void validateMethodShouldHaveAtLeastOneCapitalAndSmallLetter() {
+        assertThat(access.getPassword())
+            .matches(".*?[A-Z]{1,}.*?")
+            .matches(".*?[a-z]{1,}.*?");
     }
 }
