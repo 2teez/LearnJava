@@ -29,6 +29,9 @@ public class ValidatorTestSingle {
             },
             () -> {
                 assertThat(access.getPassword().length()).isGreaterThan(LENGTH);
+            },
+            () -> {
+                assertThat(access.validate(PASSWORD)).isTrue();
             }
         );
     }

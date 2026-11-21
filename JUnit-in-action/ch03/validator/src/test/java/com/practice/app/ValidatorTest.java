@@ -41,6 +41,7 @@ public class ValidatorTest {
         String setPassword,
         String actualPassword
     ) {
+        access = new Validator(PASSWORD);
         assertThat(access.validate(actualPassword))
             .as("false for either null or empty password.")
             .isFalse();
