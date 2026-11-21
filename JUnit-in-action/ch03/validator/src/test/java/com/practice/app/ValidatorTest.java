@@ -14,8 +14,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class ValidatorTest {
 
-    private static String PASSWORD = "valIdAT3s"; //"valiDat3s";
-    private static int LENGTH = 9;
+    private static final String PASSWORD = "valIdAT3s"; //"valiDat3s";
+    private static final int LENGTH = 9;
     private Validator access;
 
     @BeforeEach

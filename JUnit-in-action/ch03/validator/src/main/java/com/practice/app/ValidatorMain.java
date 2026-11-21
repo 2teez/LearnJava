@@ -1,6 +1,7 @@
 package com.practice.app;
 
-import com.practice.app.Validator;
+import static java.lang.System.out;
+
 import java.util.Scanner;
 
 public class ValidatorMain {
@@ -9,7 +10,10 @@ public class ValidatorMain {
 
     public static void main(String[] args) {
         var input = getUserInput("Enter a pass: ");
-        System.out.println(new Validator(input).getPassword());
+        var validator = getUserInput("Enter a validator: ");
+        var password = new Validator(input);
+        var access = password.validate(validator);
+        if (access) out.println(password.getPassword());
     }
 
     public static String getUserInput(String str) {
