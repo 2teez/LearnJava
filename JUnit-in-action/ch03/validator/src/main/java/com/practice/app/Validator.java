@@ -18,10 +18,7 @@ public class Validator {
             return result;
         }
 
-        if (
-            checkPasswordLength(this.password) > 8 &&
-            this.password.equals(password)
-        ) {
+        if (checkPasswordLength() > 8 && this.password.equals(password)) {
             result = true;
         }
 
@@ -29,7 +26,7 @@ public class Validator {
     }
 
     private int checkPasswordLength() {
-        return alph.length();
+        return this.password.length();
     }
 
     public String getPassword() {
